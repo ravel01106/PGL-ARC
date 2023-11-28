@@ -10,8 +10,8 @@ import appColors from "../assets/styles/appColors";
 const MenuItems = (navigation: DrawerContentComponentProps) => {
   return (
     <DrawerContentScrollView {...navigation}>
-      <Text style={styles.textStyle}>Menú</Text>
-      <View style={styles.lineStyle}></View>
+      <Text style={styles.styleText}>Menú</Text>
+      <View style={styles.styleLine}></View>
       <DrawerItemList {...navigation} />
     </DrawerContentScrollView>
   );
@@ -20,12 +20,12 @@ const MenuItems = (navigation: DrawerContentComponentProps) => {
 export default MenuItems;
 
 const styles = StyleSheet.create({
-  textStyle: {
+  styleText: {
     color: appColors.letter,
     fontSize: 30,
     marginLeft: "10%",
   },
-  lineStyle: {
+  styleLine: {
     borderBottomWidth: 2,
     borderColor: appColors.letter,
     marginHorizontal: "10%",
