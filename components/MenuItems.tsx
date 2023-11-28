@@ -3,17 +3,16 @@ import React from "react";
 import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
-  DrawerItem,
   DrawerItemList,
 } from "@react-navigation/drawer";
 import appColors from "../assets/styles/appColors";
 
-const MenuItems = (navigator: DrawerContentComponentProps) => {
+const MenuItems = (navigation: DrawerContentComponentProps) => {
   return (
-    <DrawerContentScrollView {...navigator}>
+    <DrawerContentScrollView {...navigation}>
       <Text style={styles.textStyle}>Menú</Text>
       <View style={styles.lineStyle}></View>
-      <DrawerItemList {...navigator} />
+      <DrawerItemList {...navigation} />
     </DrawerContentScrollView>
   );
 };

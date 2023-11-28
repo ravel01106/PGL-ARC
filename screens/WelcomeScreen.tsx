@@ -1,8 +1,10 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import appColors from "../assets/styles/appColors";
+import { DrawerContentComponentProps } from "@react-navigation/drawer";
+//import { NavigationHelpers } from "@react-navigation/native";
 
-const WelcomeScreen = () => {
+const WelcomeScreen = ({ navigation }: DrawerContentComponentProps) => {
   return (
     <View>
       <View style={styles.containerWelcome}>
@@ -19,7 +21,10 @@ const WelcomeScreen = () => {
           <Text style={styles.styleText}>
             If you want to continue, you must login
           </Text>
-          <Pressable style={styles.buttonStyle}>
+          <Pressable
+            onPress={() => navigation.navigate("Login")}
+            style={styles.buttonStyle}
+          >
             <Text style={[styles.styleText, styles.styleTextButton]}>
               Login
             </Text>
