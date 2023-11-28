@@ -10,7 +10,11 @@ const WelcomeScreen = (propsNavigator: DrawerContentComponentProps) => {
   return (
     <View>
       <GreetUser />
-      <BoxRedirection {...propsNavigator} />
+      <BoxRedirection
+        text="If you want to continue, you must login"
+        textButton="Login"
+        propsNavigator={propsNavigator}
+      />
     </View>
   );
 };

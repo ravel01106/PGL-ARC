@@ -3,15 +3,21 @@ import React from "react";
 import appColors from "../assets/styles/appColors";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
 
-const BoxRedirection = ({ navigation }: DrawerContentComponentProps) => {
+type BoxRedirectionProps = {
+  text: string;
+  textButton: string;
+  propsNavigator: DrawerContentComponentProps;
+};
+
+const BoxRedirection = (props: BoxRedirectionProps) => {
+  const { text, textButton, propsNavigator } = props;
+  const { navigation } = propsNavigator;
   return (
     <View style={styles.mainContainer}>
       <View style={styles.subcontainer}>
-        <Text style={styles.styleText}>
-          If you want to continue, you must login
-        </Text>
+        <Text style={styles.styleText}>{text}</Text>
         <Pressable
-          onPress={() => navigation.navigate("Login")}
+          onPress={() => navigation.navigate(textButton)}
           style={styles.styleButton}
         >
           <Text style={[styles.styleText, styles.styleTextButton]}>Login</Text>
