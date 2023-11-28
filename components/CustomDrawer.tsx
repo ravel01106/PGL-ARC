@@ -18,6 +18,7 @@ const CustomDrawer = () => {
     headerTitleAlign: "center",
     headerStyle: {
       backgroundColor: appColors.primary,
+      borderBottomRightRadius: 30,
     },
     headerTintColor: appColors.letterWhite,
     drawerActiveTintColor: appColors.letterWhite,
