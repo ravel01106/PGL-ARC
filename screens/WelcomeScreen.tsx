@@ -9,7 +9,7 @@ import BoxRedirection from "../components/BoxRedirection";
 const WelcomeScreen = (propsNavigator: DrawerContentComponentProps) => {
   return (
     <View>
-      <GreetUser />
+      <GreetUser name="User" />
       <BoxRedirection
         text="If you want to continue, you must login"
         textButton="Login"

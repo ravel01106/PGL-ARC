@@ -1,13 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import appColors from "../assets/styles/appColors";
-
-const GreetUser = () => {
+type GreetUserProps = {
+  name: string;
+};
+const GreetUser = ({ name }: GreetUserProps) => {
   return (
     <View style={styles.mainContainer}>
       <View style={[styles.styleFigure, styles.secondFigure]}></View>
       <View style={styles.containerGreetings}>
-        <Text style={styles.greetingsText}>Welcome, User</Text>
+        <Text style={styles.greetingsText}>Welcome, {name}</Text>
       </View>
       <View style={[styles.styleFigure, styles.firstFigure]}></View>
     </View>
