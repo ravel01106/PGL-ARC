@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+//import appColors from "../assets/styles/appColors";
 
 const PortfolioScreen = () => {
   return (
     <View>
-      <Text>PortfolioScreen</Text>
+      <Text>Proximamente en cines :D...</Text>
     </View>
   );
 };

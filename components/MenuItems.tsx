@@ -4,15 +4,16 @@ import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
   DrawerItemList,
+  DrawerItem,
 } from "@react-navigation/drawer";
 import appColors from "../assets/styles/appColors";
 
-const MenuItems = (navigation: DrawerContentComponentProps) => {
+const MenuItems = (navigator: DrawerContentComponentProps) => {
   return (
-    <DrawerContentScrollView {...navigation}>
+    <DrawerContentScrollView {...navigator}>
       <Text style={styles.styleText}>Menú</Text>
       <View style={styles.styleLine}></View>
-      <DrawerItemList {...navigation} />
+      <DrawerItemList {...navigator} />
     </DrawerContentScrollView>
   );
 };

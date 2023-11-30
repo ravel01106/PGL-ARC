@@ -4,16 +4,16 @@ import appColors from "../assets/styles/appColors";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import GreetUser from "../components/GreetUser";
 import BoxRedirection from "../components/BoxRedirection";
+
 //import { NavigationHelpers } from "@react-navigation/native";
 
-const WelcomeScreen = (propsNavigator: DrawerContentComponentProps) => {
+const WelcomeScreen = () => {
   return (
     <View>
       <GreetUser name="User" />
       <BoxRedirection
         text="If you want to continue, you must login"
         textButton="Login"
-        propsNavigator={propsNavigator}
       />
     </View>
   );

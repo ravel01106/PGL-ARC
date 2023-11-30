@@ -2,22 +2,22 @@ import { StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 import appColors from "../assets/styles/appColors";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
+import { NavigationContext } from "@react-navigation/native";
 
 type BoxRedirectionProps = {
   text: string;
   textButton: string;
-  propsNavigator: DrawerContentComponentProps;
 };
 
 const BoxRedirection = (props: BoxRedirectionProps) => {
-  const { text, textButton, propsNavigator } = props;
-  const { navigation } = propsNavigator;
+  const { text, textButton } = props;
+  const navigation = React.useContext(NavigationContext);
   return (
     <View style={styles.mainContainer}>
       <View style={styles.subcontainer}>
         <Text style={styles.styleText}>{text}</Text>
         <Pressable
-          onPress={() => navigation.navigate(textButton)}
+          onPress={() => navigation?.navigate(textButton)}
           style={styles.styleButton}
         >
           <Text style={[styles.styleText, styles.styleTextButton]}>Login</Text>
