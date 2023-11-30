@@ -12,13 +12,17 @@ const LoginScreen = () => {
     username: "",
     password: "",
   };
+
   const userDefault = React.useContext(userDefaultContext);
   const isLogin = React.useContext(userIsLoginContext);
   const navigation = React.useContext(NavigationContext);
+
   const [user, setUser] = React.useState(initState);
+
   const handleOnChange = (value: string, input: string) => {
     setUser((prevState) => ({ ...prevState, [input]: value }));
   };
+
   const checkUser = () => {
     if (
       user.username == userDefault.username &&
@@ -27,6 +31,8 @@ const LoginScreen = () => {
       isLogin.toggleChangeIsLogin();
       navigation?.navigate("Welcome");
       console.log("Login Successfull :D !!!");
+    } else {
+      alert("User incorrect, try again !!");
     }
 
     setUser(initState);

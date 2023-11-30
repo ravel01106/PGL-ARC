@@ -9,10 +9,13 @@ import LoginScreen from "../screens/LoginScreen";
 import PortfolioScreen from "../screens/PortfolioScreen";
 import appColors from "../assets/styles/appColors";
 import MenuItems from "./MenuItems";
+import { userIsLoginContext } from "../context/LoginContext";
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawer = () => {
+  const { isLogin } = React.useContext(userIsLoginContext);
+
   const drawerNavigatorScreenOptions: DrawerNavigationOptions = {
     headerTitle: "PGL APP ARC",
     headerTitleAlign: "center",
@@ -45,8 +48,11 @@ const CustomDrawer = () => {
       screenOptions={drawerNavigatorScreenOptions}
     >
       <Drawer.Screen name="Welcome" component={WelcomeScreen} />
-      <Drawer.Screen name="Login" component={LoginScreen} />
-      <Drawer.Screen name="Portfolio" component={PortfolioScreen} />
+      {isLogin ? (
+        <Drawer.Screen name="Portfolio" component={PortfolioScreen} />
+      ) : (
+        <Drawer.Screen name="Login" component={LoginScreen} />
+      )}
     </Drawer.Navigator>
   );
 };

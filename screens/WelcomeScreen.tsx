@@ -20,7 +20,7 @@ const WelcomeScreen = () => {
       <BoxRedirection
         text={
           isLogin
-            ? "If you want, you can see my portfolio"
+            ? "If you want to see the portfolio, you must do click here!"
             : "If you want to continue, you must login"
         }
         textButton={isLogin ? "Portfolio" : "Login"}
