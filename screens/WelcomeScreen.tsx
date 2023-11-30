@@ -4,16 +4,26 @@ import appColors from "../assets/styles/appColors";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import GreetUser from "../components/GreetUser";
 import BoxRedirection from "../components/BoxRedirection";
+import {
+  userDefaultContext,
+  userIsLoginContext,
+} from "../context/LoginContext";
 
 //import { NavigationHelpers } from "@react-navigation/native";
 
 const WelcomeScreen = () => {
+  const { isLogin } = React.useContext(userIsLoginContext);
+  const { username } = React.useContext(userDefaultContext);
   return (
     <View>
-      <GreetUser name="User" />
+      <GreetUser name={isLogin ? username : "User"} />
       <BoxRedirection
-        text="If you want to continue, you must login"
-        textButton="Login"
+        text={
+          isLogin
+            ? "If you want, you can see my portfolio"
+            : "If you want to continue, you must login"
+        }
+        textButton={isLogin ? "Portfolio" : "Login"}
       />
     </View>
   );

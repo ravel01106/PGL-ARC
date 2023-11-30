@@ -7,13 +7,22 @@ import {
   DrawerItem,
 } from "@react-navigation/drawer";
 import appColors from "../assets/styles/appColors";
+import { userIsLoginContext } from "../context/LoginContext";
+import { NavigationContext } from "@react-navigation/native";
 
 const MenuItems = (navigator: DrawerContentComponentProps) => {
+  const isLogin = React.useContext(userIsLoginContext);
+  const navigation = React.useContext(NavigationContext);
+  const logOut = () => {
+    isLogin.toggleChangeIsLogin();
+    navigation?.navigate("Welcome");
+  };
   return (
     <DrawerContentScrollView {...navigator}>
       <Text style={styles.styleText}>Menú</Text>
       <View style={styles.styleLine}></View>
       <DrawerItemList {...navigator} />
+      <DrawerItem label="Cerrar sesion" onPress={() => logOut()} />
     </DrawerContentScrollView>
   );
 };

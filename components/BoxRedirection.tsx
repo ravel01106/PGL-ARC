@@ -20,7 +20,9 @@ const BoxRedirection = (props: BoxRedirectionProps) => {
           onPress={() => navigation?.navigate(textButton)}
           style={styles.styleButton}
         >
-          <Text style={[styles.styleText, styles.styleTextButton]}>Login</Text>
+          <Text style={[styles.styleText, styles.styleTextButton]}>
+            {textButton}
+          </Text>
         </Pressable>
       </View>
     </View>
