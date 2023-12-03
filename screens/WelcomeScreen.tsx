@@ -4,16 +4,12 @@ import appColors from "../assets/styles/appColors";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import GreetUser from "../components/GreetUser";
 import BoxRedirection from "../components/BoxRedirection";
-import {
-  userDefaultContext,
-  userIsLoginContext,
-} from "../context/LoginContext";
+import { userDefaultContext } from "../context/LoginContext";
 
 //import { NavigationHelpers } from "@react-navigation/native";
 
 const WelcomeScreen = () => {
-  const { isLogin } = React.useContext(userIsLoginContext);
-  const { username } = React.useContext(userDefaultContext);
+  const { username, isLogin } = React.useContext(userDefaultContext);
   return (
     <View>
       <GreetUser name={isLogin ? username : "User"} />

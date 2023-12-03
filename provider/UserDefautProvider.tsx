@@ -3,8 +3,6 @@ import React from "react";
 import {
   UserDefaultContextType,
   userDefaultContext,
-  userIsLoginContext,
-  UserIsLoginContextType,
 } from "../context/LoginContext";
 
 type UserDefaultProviderProps = {
@@ -19,17 +17,13 @@ const UserDefaultProvider = ({ children }: UserDefaultProviderProps) => {
   const userDefault: UserDefaultContextType = {
     username: "admin",
     password: "admin",
-  };
-
-  const isLoginDefault: UserIsLoginContextType = {
     isLogin,
     toggleChangeIsLogin,
   };
+
   return (
     <userDefaultContext.Provider value={userDefault}>
-      <userIsLoginContext.Provider value={isLoginDefault}>
-        {children}
-      </userIsLoginContext.Provider>
+      {children}
     </userDefaultContext.Provider>
   );
 };

@@ -7,14 +7,14 @@ import {
   DrawerItem,
 } from "@react-navigation/drawer";
 import appColors from "../assets/styles/appColors";
-import { userIsLoginContext } from "../context/LoginContext";
+import { userDefaultContext } from "../context/LoginContext";
 
 const MenuItems = (navigator: DrawerContentComponentProps) => {
-  const userIsLogin = React.useContext(userIsLoginContext);
+  const userDefault = React.useContext(userDefaultContext);
   const logout = () => {
-    userIsLogin.toggleChangeIsLogin();
+    userDefault.toggleChangeIsLogin();
     navigator.navigation.navigate("Welcome");
-    console.log("Logout successfull D: !!!");
+    console.log("Logout Successfull :(!");
     navigator.navigation.closeDrawer();
   };
   return (
@@ -22,7 +22,7 @@ const MenuItems = (navigator: DrawerContentComponentProps) => {
       <Text style={styles.styleText}>Menú</Text>
       <View style={styles.styleLine}></View>
       <DrawerItemList {...navigator} />
-      {userIsLogin.isLogin ? (
+      {userDefault.isLogin ? (
         <DrawerItem
           label="Cerrar sesion"
           onPress={() => logout()}
