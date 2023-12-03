@@ -13,14 +13,13 @@ type CustomProviderProps = {
 const CustomProvider = ({ children }: CustomProviderProps) => {
   const [isLogin, setIsLogin] = React.useState(false);
 
-  const toggleChangeIsLogin = () => setIsLogin(!isLogin);
-
   const userDefault: UserDefaultContextType = {
     username: "admin",
     password: "admin",
     isLogin,
-    toggleChangeIsLogin,
+    toggleChangeIsLogin: () => setIsLogin(!isLogin),
   };
+  const [displayMyInfo, setDisplayMyInfo] = React.useState(true);
   const dataUser: CardInfoContextType = {
     title: "Amanda Ravelo Cabrera",
     description:
@@ -39,6 +38,8 @@ const CustomProvider = ({ children }: CustomProviderProps) => {
       "HTML",
     ],
     qr: "github.com/ravel01106",
+    displayMyInfo,
+    toggleChangeDisplayMyInfo: () => setDisplayMyInfo(!displayMyInfo),
   };
 
   return (

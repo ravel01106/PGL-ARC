@@ -8,6 +8,8 @@ type CardInfoContextType = {
   avatar: ImageProps;
   skillList: string[];
   qr: string;
+  displayMyInfo: boolean;
+  toggleChangeDisplayMyInfo: Function;
 };
 
 const cardInfoContext = React.createContext({} as CardInfoContextType);
