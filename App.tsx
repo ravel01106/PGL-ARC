@@ -1,17 +1,17 @@
 import { StyleSheet, Text, View } from "react-native";
 import CustomDrawer from "./components/CustomDrawer";
 import { NavigationContainer } from "@react-navigation/native";
-import UserDefaultProvider from "./provider/UserDefautProvider";
+import CustomProvider from "./provider/CustomProvider";
 
 export default function App() {
   return (
-    <UserDefaultProvider>
+    <CustomProvider>
       <View style={styles.container}>
         <NavigationContainer>
           <CustomDrawer />
         </NavigationContainer>
       </View>
-    </UserDefaultProvider>
+    </CustomProvider>
   );
 }
 
