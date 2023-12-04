@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 import appColors from "../assets/styles/appColors";
-import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import { NavigationContext } from "@react-navigation/native";
 
 type BoxRedirectionProps = {

@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { AntDesign, Entypo } from "@expo/vector-icons";
-import { cardInfoContext } from "../context/CardContext";
 import appColors from "../assets/styles/appColors";
+import cardInfo from "../data/CardInfo";
 
 const DescriptionCard = () => {
-  const { title, description } = React.useContext(cardInfoContext);
+  const { title, description } = cardInfo;
   return (
     <View style={styles.mainContainer}>
       <View style={styles.infoContainer}>

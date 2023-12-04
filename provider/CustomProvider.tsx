@@ -2,52 +2,38 @@ import React from "react";
 
 import {
   UserDefaultContextType,
-  userDefaultContext,
+  userIsLoginContext,
 } from "../context/LoginContext";
-import { CardInfoContextType, cardInfoContext } from "../context/CardContext";
+
+import {
+  displayInfoContext,
+  DisplayInfoContextType,
+} from "../context/DisplayInfoContext";
 
 type CustomProviderProps = {
   children: JSX.Element | JSX.Element[];
 };
 
 const CustomProvider = ({ children }: CustomProviderProps) => {
+  const [displayMyInfo, setDisplayMyInfo] = React.useState(true);
   const [isLogin, setIsLogin] = React.useState(false);
 
   const userDefault: UserDefaultContextType = {
-    username: "admin",
-    password: "admin",
     isLogin,
     toggleChangeIsLogin: () => setIsLogin(!isLogin),
   };
-  const [displayMyInfo, setDisplayMyInfo] = React.useState(true);
-  const dataUser: CardInfoContextType = {
-    title: "Amanda Ravelo Cabrera",
-    description:
-      "I am a full stack programmer who is very curious about new technologies.",
-    background: require("../assets/images/fondo-amanda.jpg"),
-    avatar: require("../assets/images/avatar.png"),
-    skillList: [
-      "TypeScript",
-      "JavaScript",
-      "Python",
-      "Java",
-      "MySQL",
-      "PHP",
-      "MongoDB",
-      "CSS",
-      "HTML",
-    ],
-    qr: "github.com/ravel01106",
+
+  const displayInfoUser: DisplayInfoContextType = {
     displayMyInfo,
     toggleChangeDisplayMyInfo: () => setDisplayMyInfo(!displayMyInfo),
   };
 
   return (
-    <userDefaultContext.Provider value={userDefault}>
-      <cardInfoContext.Provider value={dataUser}>
+    <userIsLoginContext.Provider value={userDefault}>
+      <displayInfoContext.Provider value={displayInfoUser}>
         {children}
-      </cardInfoContext.Provider>
-    </userDefaultContext.Provider>
+      </displayInfoContext.Provider>
+    </userIsLoginContext.Provider>
   );
 };
 

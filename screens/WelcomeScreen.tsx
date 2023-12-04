@@ -1,15 +1,13 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
-import appColors from "../assets/styles/appColors";
-import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import GreetUser from "../components/GreetUser";
 import BoxRedirection from "../components/BoxRedirection";
-import { userDefaultContext } from "../context/LoginContext";
-
-//import { NavigationHelpers } from "@react-navigation/native";
+import { userIsLoginContext } from "../context/LoginContext";
+import userDefault from "../data/User";
 
 const WelcomeScreen = () => {
-  const { username, isLogin } = React.useContext(userDefaultContext);
+  const { isLogin } = React.useContext(userIsLoginContext);
+  const { username } = userDefault;
   return (
     <View>
       <GreetUser name={isLogin ? username : "User"} />

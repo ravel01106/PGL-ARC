@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
@@ -8,7 +7,6 @@ import {
 import CardScreen from "./CardScreen";
 import QrScreen from "./QrScreen";
 import { AntDesign } from "@expo/vector-icons";
-
 import appColors from "../assets/styles/appColors";
 
 const Tab = createBottomTabNavigator();
@@ -41,7 +39,10 @@ const PortfolioScreen = () => {
   };
   return (
     <View style={styles.bodyStyle}>
-      <Tab.Navigator screenOptions={tabNavigationOptions}>
+      <Tab.Navigator
+        initialRouteName="Card"
+        screenOptions={tabNavigationOptions}
+      >
         <Tab.Screen
           name="Card"
           component={CardScreen}

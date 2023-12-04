@@ -1,12 +1,12 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
-import { cardInfoContext } from "../context/CardContext";
+import { displayInfoContext } from "../context/DisplayInfoContext";
 import appColors from "../assets/styles/appColors";
 
 export default function ArrowSelection() {
   const { displayMyInfo, toggleChangeDisplayMyInfo } =
-    React.useContext(cardInfoContext);
+    React.useContext(displayInfoContext);
   return (
     <View style={styles.arrowStyle}>
       <AntDesign

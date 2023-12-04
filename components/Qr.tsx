@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import appColors from "../assets/styles/appColors";
-import { cardInfoContext } from "../context/CardContext";
 import QRCode from "react-native-qrcode-svg";
+import cardInfo from "../data/CardInfo";
 
 const Qr = () => {
-  const { title, qr } = React.useContext(cardInfoContext);
+  const { title, qr } = cardInfo;
   return (
     <View style={styles.infoContainer}>
       <Text style={[styles.text, styles.cardTitle]}>{title}</Text>

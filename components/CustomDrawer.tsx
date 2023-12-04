@@ -9,12 +9,12 @@ import LoginScreen from "../screens/LoginScreen";
 import PortfolioScreen from "../screens/PortfolioScreen";
 import appColors from "../assets/styles/appColors";
 import MenuItems from "./MenuItems";
-import { userDefaultContext } from "../context/LoginContext";
+import { userIsLoginContext } from "../context/LoginContext";
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawer = () => {
-  const { isLogin } = React.useContext(userDefaultContext);
+  const { isLogin } = React.useContext(userIsLoginContext);
 
   const drawerNavigatorScreenOptions: DrawerNavigationOptions = {
     headerTitle: "PGL APP ARC",

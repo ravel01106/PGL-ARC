@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import React from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { cardInfoContext } from "../context/CardContext";
 import appColors from "../assets/styles/appColors";
+import cardInfo from "../data/CardInfo";
 
 export default function SkillList() {
-  const { skillList } = React.useContext(cardInfoContext);
+  const { skillList } = cardInfo;
 
   const getIconNameForSkill = (skill: string) => {
     switch (skill) {

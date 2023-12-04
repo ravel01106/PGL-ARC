@@ -1,9 +1,9 @@
 import { StyleSheet, ImageBackground, Image } from "react-native";
 import React from "react";
-import { cardInfoContext } from "../context/CardContext";
+import cardInfo from "../data/CardInfo";
 
 export default function FrontCard() {
-  const { background, avatar } = React.useContext(cardInfoContext);
+  const { background, avatar } = cardInfo;
 
   return (
     <ImageBackground source={background} style={styles.imageContainer}>

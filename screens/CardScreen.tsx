@@ -1,14 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
 import appColors from "../assets/styles/appColors";
 import FrontCard from "../components/FrontCard";
-import { cardInfoContext } from "../context/CardContext";
+import { displayInfoContext } from "../context/DisplayInfoContext";
 import DescriptionCard from "../components/DescriptionCard";
 import SkillList from "../components/SkillList";
 import ArrowSelection from "../components/ArrowSelection";
 
 const CardScreen = () => {
-  const { displayMyInfo } = React.useContext(cardInfoContext);
+  const { displayMyInfo } = React.useContext(displayInfoContext);
   return (
     <View style={styles.mainContainer}>
       <View style={styles.cardContainer}>
