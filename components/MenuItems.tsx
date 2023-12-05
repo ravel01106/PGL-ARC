@@ -24,7 +24,7 @@ const MenuItems = (navigator: DrawerContentComponentProps) => {
       <DrawerItemList {...navigator} />
       {isLogin ? (
         <DrawerItem
-          label="Cerrar sesion"
+          label="Sing out"
           onPress={() => logout()}
           labelStyle={styles.logoutTextStyle}
           style={styles.logoutContainerStyle}
