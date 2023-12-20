@@ -10,6 +10,7 @@ import PortfolioScreen from "../screens/PortfolioScreen";
 import appColors from "../assets/styles/appColors";
 import MenuItems from "./MenuItems";
 import { userIsLoginContext } from "../context/LoginContext";
+import ToDoListScreen from "../screens/ToDoListScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -49,7 +50,10 @@ const CustomDrawer = () => {
     >
       <Drawer.Screen name="Welcome" component={WelcomeScreen} />
       {isLogin ? (
-        <Drawer.Screen name="Portfolio" component={PortfolioScreen} />
+        <>
+          <Drawer.Screen name="Portfolio" component={PortfolioScreen} />
+          <Drawer.Screen name="ToDoList" component={ToDoListScreen} />
+        </>
       ) : (
         <Drawer.Screen name="Login" component={LoginScreen} />
       )}
