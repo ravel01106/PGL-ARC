@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import appColors from "../assets/styles/appColors";
 
@@ -12,9 +12,12 @@ const ToDoListScreen = () => {
         </View>
         <View style={[styles.styleFigure, styles.firstFigure]}></View>
       </View>
-      <View style={styles.buttonContainer}>
+      <Pressable
+        onPress={() => alert("Yeah boy")}
+        style={styles.buttonContainer}
+      >
         <Text style={styles.buttonText}>Search</Text>
-      </View>
+      </Pressable>
 
       <View style={styles.boxMainContainer}>
         <View style={styles.subcontainer}>
