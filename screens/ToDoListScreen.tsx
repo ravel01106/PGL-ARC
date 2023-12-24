@@ -1,8 +1,16 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import appColors from "../assets/styles/appColors";
+import { getActivityRandom } from "../services/ActivityRandomService";
 
 const ToDoListScreen = () => {
+  const fetchActivityApi = () => {
+    const fetchData = async () => {
+      const data = await getActivityRandom();
+      console.log(data);
+    };
+    fetchData();
+  };
   return (
     <View style={styles.mainContainer}>
       <View style={styles.titleMainContainer}>
@@ -12,10 +20,7 @@ const ToDoListScreen = () => {
         </View>
         <View style={[styles.styleFigure, styles.firstFigure]}></View>
       </View>
-      <Pressable
-        onPress={() => alert("Yeah boy")}
-        style={styles.buttonContainer}
-      >
+      <Pressable onPress={fetchActivityApi} style={styles.buttonContainer}>
         <Text style={styles.buttonText}>Search</Text>
       </Pressable>
 
