@@ -4,31 +4,27 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Modal,
 } from "react-native";
 import React from "react";
 import appColors from "../assets/styles/appColors";
 import { getActivityRandom } from "../services/ActivityRandomService";
 import { FlatList } from "react-native-gesture-handler";
 import { Entypo } from "@expo/vector-icons";
-
-type ActivityData = {
-  index: number;
-  name: string;
-  participants: number;
-  price: number;
-  accessibility: number;
-};
+import { ActivityType } from "../types/ActivityType";
+import TitleActivitynator from "../components/TitleActivitynator";
+import ActivitiesListEmpty from "./ActivitiesListEmpty";
 
 const ToDoListScreen = () => {
-  const [activities, setActivities] = React.useState<ActivityData[]>([]);
+  const [activities, setActivities] = React.useState<ActivityType[]>([]);
 
   const fetchActivityApi = () => {
     const fetchData = async () => {
-      const arrayData: ActivityData[] = [...activities];
+      const arrayData: ActivityType[] = [...activities];
       const index: number = activities.length + 1;
       const data = await getActivityRandom();
 
-      const activity: ActivityData = {
+      const activity: ActivityType = {
         index: index,
         name: data.activity,
         participants: data.participants,
@@ -43,22 +39,52 @@ const ToDoListScreen = () => {
     fetchData();
   };
 
-  const getActivities = () => {
-    if (activities && activities.length != 0) {
-      return activities;
-    }
-    return [];
+  const OnDeleteActivity = (activityRemoved: ActivityType) => {
+    const arrayData = activities.filter(
+      (activity) => activity.index != activityRemoved.index
+    );
+    setActivities(arrayData);
   };
 
+  /*
+  const showDetailsActivity = (activity: ActivityType) => {
+    setModalVisible(true);
+    return (
+      <Modal
+        visible={modalVisible}
+        animationType="fade"
+        transparent={true}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.descriptionContainer}>
+            <View>
+              <TouchableOpacity onPress={() => setModalVisible(false)}>
+                <Entypo name="cross" size={34} color={appColors.letter} />
+              </TouchableOpacity>
+              <Text>Description</Text>
+            </View>
+            <View>
+              <Text>{activity.name}</Text>
+            </View>
+            <View>
+              <Text>Participants: {activity.participants}</Text>
+            </View>
+            <View>
+              <Text>Price: {activity.price}</Text>
+            </View>
+            <View>
+              <Text>Accessibility: {activity.accessibility}</Text>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    );
+  };
+*/
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.titleMainContainer}>
-        <View style={[styles.styleFigure, styles.secondFigure]}></View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.greetingsText}>Activitynaitor</Text>
-        </View>
-        <View style={[styles.styleFigure, styles.firstFigure]}></View>
-      </View>
+      <TitleActivitynator />
       <Pressable
         onPress={() => fetchActivityApi()}
         style={styles.buttonContainer}
@@ -70,24 +96,15 @@ const ToDoListScreen = () => {
           style={styles.listActivitiesContainer}
           data={activities}
           renderItem={(activity) => (
-            <TouchableOpacity
-              style={styles.activityContainer}
-              onPress={() => alert("Yeah boyy")}
-            >
+            <TouchableOpacity style={styles.activityContainer}>
               <Text style={styles.activityText}>{activity.item.name}</Text>
-              <TouchableOpacity onPress={() => alert("yeah boy")}>
+              <TouchableOpacity onPress={() => OnDeleteActivity(activity.item)}>
                 <Entypo name="cross" size={34} color={appColors.letterWhite} />
               </TouchableOpacity>
             </TouchableOpacity>
           )}
           keyExtractor={(activity) => activity.index.toString()}
-          ListEmptyComponent={() => (
-            <View style={styles.subcontainer}>
-              <Text style={styles.styleText}>
-                Waiting to look for activities
-              </Text>
-            </View>
-          )}
+          ListEmptyComponent={() => <ActivitiesListEmpty />}
         />
       </View>
     </View>
@@ -100,46 +117,13 @@ const styles = StyleSheet.create({
   mainContainer: {
     alignItems: "center",
   },
-  titleMainContainer: {
-    height: 180,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  greetingsText: {
-    textAlign: "center",
-    color: appColors.letter,
-    fontSize: 32,
-  },
-  titleContainer: {
-    height: 70,
-    width: "80%",
-    backgroundColor: appColors.secundary,
-    borderRadius: 100,
-    justifyContent: "center",
-  },
-  styleFigure: {
-    height: 35,
-    width: "20%",
-    backgroundColor: appColors.secundary,
-  },
-  firstFigure: {
-    borderBottomRightRadius: 100,
-    borderBottomLeftRadius: 100,
-    marginRight: "43%",
-  },
-  secondFigure: {
-    borderTopRightRadius: 100,
-    borderTopLeftRadius: 100,
-    marginLeft: "43%",
-  },
   buttonContainer: {
     height: 70,
     width: "40%",
     backgroundColor: appColors.secundary,
     borderRadius: 100,
     justifyContent: "center",
-    marginBottom: 30,
+    marginBottom: 38,
   },
   buttonText: {
     textAlign: "center",
@@ -153,21 +137,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 70,
     borderTopLeftRadius: 70,
   },
-  subcontainer: {
-    height: 300,
-    width: "75%",
-    backgroundColor: appColors.ternary,
-    borderRadius: 70,
-    alignSelf: "center",
-    marginVertical: "20%",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-  },
-  styleText: {
-    color: appColors.letterWhite,
-    fontSize: 24,
-    textAlign: "center",
-  },
+
   styleButton: {
     height: "20%",
     width: "65%",
@@ -202,4 +172,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     flex: 1,
   },
+  /*
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
+  },
+  descriptionContainer: {
+    backgroundColor: "#fff",
+    height: 350,
+    width: "80%",
+    borderRadius: 30,
+    padding: 10,
+  }, */
 });
