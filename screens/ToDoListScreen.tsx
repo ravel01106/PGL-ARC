@@ -4,7 +4,6 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Modal,
 } from "react-native";
 import React from "react";
 import appColors from "../assets/styles/appColors";
@@ -26,14 +25,10 @@ const ToDoListScreen = () => {
 
       const activity: ActivityType = {
         index: index,
-        name: data.activity,
-        participants: data.participants,
-        price: data.price,
-        accessibility: data.accessibility,
+        name: data,
       };
       arrayData.push(activity);
       setActivities(arrayData);
-      console.log(activities);
     };
 
     fetchData();
@@ -46,42 +41,6 @@ const ToDoListScreen = () => {
     setActivities(arrayData);
   };
 
-  /*
-  const showDetailsActivity = (activity: ActivityType) => {
-    setModalVisible(true);
-    return (
-      <Modal
-        visible={modalVisible}
-        animationType="fade"
-        transparent={true}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.descriptionContainer}>
-            <View>
-              <TouchableOpacity onPress={() => setModalVisible(false)}>
-                <Entypo name="cross" size={34} color={appColors.letter} />
-              </TouchableOpacity>
-              <Text>Description</Text>
-            </View>
-            <View>
-              <Text>{activity.name}</Text>
-            </View>
-            <View>
-              <Text>Participants: {activity.participants}</Text>
-            </View>
-            <View>
-              <Text>Price: {activity.price}</Text>
-            </View>
-            <View>
-              <Text>Accessibility: {activity.accessibility}</Text>
-            </View>
-          </View>
-        </View>
-      </Modal>
-    );
-  };
-*/
   return (
     <View style={styles.mainContainer}>
       <TitleActivitynator />
@@ -172,18 +131,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
     flex: 1,
   },
-  /*
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.1)",
-  },
-  descriptionContainer: {
-    backgroundColor: "#fff",
-    height: 350,
-    width: "80%",
-    borderRadius: 30,
-    padding: 10,
-  }, */
 });

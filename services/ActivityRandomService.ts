@@ -21,9 +21,9 @@ const getInitRequest = (httVerb: string): RequestInit => {
   };
 };
 
-export const getActivityRandom = async (): Promise<ActivityJsonResponse> => {
+export const getActivityRandom = async (): Promise<string> => {
   const request: RequestInfo = `${ACTIVITY_API_URL}${ACTIVITY_PATH}`;
   const response = await fetch(request, getInitRequest("GET"));
   const jsonResponse: ActivityJsonResponse = await response.json();
-  return jsonResponse;
+  return jsonResponse.activity;
 };
