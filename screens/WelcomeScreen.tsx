@@ -6,11 +6,10 @@ import { userIsLoginContext } from "../context/LoginContext";
 import userDefault from "../data/User";
 
 const WelcomeScreen = () => {
-  const { isLogin } = React.useContext(userIsLoginContext);
-  const { username } = userDefault;
+  const { isLogin, name } = React.useContext(userIsLoginContext);
   return (
     <View>
-      <GreetUser name={isLogin ? username : "User"} />
+      <GreetUser name={isLogin ? name : "User"} />
       <BoxRedirection
         text={
           isLogin

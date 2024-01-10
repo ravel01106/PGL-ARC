@@ -17,10 +17,13 @@ type CustomProviderProps = {
 const CustomProvider = ({ children }: CustomProviderProps) => {
   const [displayMyInfo, setDisplayMyInfo] = React.useState(true);
   const [isLogin, setIsLogin] = React.useState(false);
+  const [name, setName] = React.useState("");
 
   const userDefault: UserDefaultContextType = {
     isLogin,
     toggleChangeIsLogin: () => setIsLogin(!isLogin),
+    name,
+    changeName: (newName: string) => setName(newName),
   };
 
   const displayInfoUser: DisplayInfoContextType = {

@@ -4,16 +4,18 @@ import appColors from "../assets/styles/appColors";
 import { NavigationContext } from "@react-navigation/native";
 import { userIsLoginContext } from "../context/LoginContext";
 import userDefault from "../data/User";
+import { loginUser } from "../services/LoginUserService";
 
 const LoginScreen = () => {
   const initState = {
-    username: "",
+    name: "",
     password: "",
   };
 
-  const { username, password } = userDefault;
+  const { name, password } = userDefault;
   const navigation = React.useContext(NavigationContext);
-  const { toggleChangeIsLogin } = React.useContext(userIsLoginContext);
+  const { toggleChangeIsLogin, changeName } =
+    React.useContext(userIsLoginContext);
 
   const [user, setUser] = React.useState(initState);
 
@@ -21,8 +23,24 @@ const LoginScreen = () => {
     setUser((prevState) => ({ ...prevState, [input]: value }));
   };
 
+  const fetchLoginUser = () => {
+    const fetchData = async () => {
+      const data = await loginUser(user);
+      if (data != null) {
+        toggleChangeIsLogin();
+        changeName(data.name);
+        navigation?.navigate("Welcome");
+        console.log("Login Successfull :D!!!");
+      } else {
+        alert("User incorrect, try again !!");
+      }
+      setUser(initState);
+    };
+    fetchData();
+  };
+
   const checkUser = () => {
-    if (user.username == username && user.password == password) {
+    if (user.name == name && user.password == password) {
       toggleChangeIsLogin();
       navigation?.navigate("Welcome");
       console.log("Login Successfull :D!!!");
@@ -41,8 +59,8 @@ const LoginScreen = () => {
           <TextInput
             placeholder="Name..."
             style={styles.input}
-            value={user.username}
-            onChangeText={(username) => handleOnChange(username, "username")}
+            value={user.name}
+            onChangeText={(name) => handleOnChange(name, "name")}
           />
           <TextInput
             placeholder="Password..."
@@ -51,7 +69,10 @@ const LoginScreen = () => {
             secureTextEntry={true}
             onChangeText={(password) => handleOnChange(password, "password")}
           />
-          <Pressable style={styles.styleButton} onPress={checkUser}>
+          <Pressable
+            style={styles.styleButton}
+            onPress={() => fetchLoginUser()}
+          >
             <Text style={[styles.styleText, styles.styleTextButton]}>Send</Text>
           </Pressable>
         </View>
