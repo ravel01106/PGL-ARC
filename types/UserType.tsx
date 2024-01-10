@@ -3,4 +3,8 @@ type UserType = {
   password: string;
 };
 
+export type LoggedUser = {
+  name: string;
+};
+
 export default UserType;

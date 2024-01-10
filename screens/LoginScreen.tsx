@@ -3,7 +3,6 @@ import React from "react";
 import appColors from "../assets/styles/appColors";
 import { NavigationContext } from "@react-navigation/native";
 import { userIsLoginContext } from "../context/LoginContext";
-import userDefault from "../data/User";
 import { loginUser } from "../services/LoginUserService";
 
 const LoginScreen = () => {
@@ -11,8 +10,6 @@ const LoginScreen = () => {
     name: "",
     password: "",
   };
-
-  const { name, password } = userDefault;
   const navigation = React.useContext(NavigationContext);
   const { toggleChangeIsLogin, changeName } =
     React.useContext(userIsLoginContext);
@@ -26,6 +23,7 @@ const LoginScreen = () => {
   const fetchLoginUser = () => {
     const fetchData = async () => {
       const data = await loginUser(user);
+
       if (data != null) {
         toggleChangeIsLogin();
         changeName(data.name);
@@ -37,18 +35,6 @@ const LoginScreen = () => {
       setUser(initState);
     };
     fetchData();
-  };
-
-  const checkUser = () => {
-    if (user.name == name && user.password == password) {
-      toggleChangeIsLogin();
-      navigation?.navigate("Welcome");
-      console.log("Login Successfull :D!!!");
-    } else {
-      alert("User incorrect, try again !!");
-    }
-
-    setUser(initState);
   };
 
   return (
