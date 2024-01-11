@@ -27,10 +27,19 @@ export const loginUser = async (user: UserType): Promise<LoggedUser | null> => {
   return null;
 };
 
-export const resgisterUser = async (user: object) => {
+export const resgisterUser = async (
+  user: object
+): Promise<LoggedUser | null> => {
   const request: RequestInfo = `${LOGIN_API_URL}${REGISTER_PATH}`;
   const response = await fetch(request, postInitRequest(user));
-  const jsonResponse: RegisterJsonResponse = await response.json();
+  if (response.status == 201) {
+    const jsonResponse: RegisterJsonResponse = await response.json();
+    const loggedUser: LoggedUser = {
+      name: jsonResponse.name,
+    };
+    return loggedUser;
+  }
+  return null;
 };
 
 export const logoutUser = async (): Promise<LogoutJsonResponse | null> => {

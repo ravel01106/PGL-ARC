@@ -11,6 +11,7 @@ import appColors from "../assets/styles/appColors";
 import MenuItems from "./MenuItems";
 import { userIsLoginContext } from "../context/LoginContext";
 import ToDoListScreen from "../screens/ToDoListScreen";
+import RegisterScreen from "../screens/RegisterScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -55,7 +56,10 @@ const CustomDrawer = () => {
           <Drawer.Screen name="ToDoList" component={ToDoListScreen} />
         </>
       ) : (
-        <Drawer.Screen name="Login" component={LoginScreen} />
+        <>
+          <Drawer.Screen name="Login" component={LoginScreen} />
+          <Drawer.Screen name="Register" component={RegisterScreen} />
+        </>
       )}
     </Drawer.Navigator>
   );
