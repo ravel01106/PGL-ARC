@@ -8,15 +8,28 @@ import {
 } from "@react-navigation/drawer";
 import appColors from "../assets/styles/appColors";
 import { userIsLoginContext } from "../context/LoginContext";
+import { logoutUser } from "../services/LoginUserService";
 
 const MenuItems = (navigator: DrawerContentComponentProps) => {
-  const { isLogin, toggleChangeIsLogin } = React.useContext(userIsLoginContext);
-  const logout = () => {
-    toggleChangeIsLogin();
-    navigator.navigation.navigate("Welcome");
-    console.log("Logout Successfull :(!");
-    navigator.navigation.closeDrawer();
+  const { isLogin, toggleChangeIsLogin, changeName } =
+    React.useContext(userIsLoginContext);
+
+  const fetchLogoutUser = () => {
+    const fetchData = async () => {
+      const data = await logoutUser();
+      if (data != null) {
+        toggleChangeIsLogin();
+        changeName("User");
+        navigator.navigation.navigate("Welcome");
+        console.log("Logout Successfull :(!");
+        navigator.navigation.closeDrawer();
+      } else {
+        alert("Error when trying to close session");
+      }
+    };
+    fetchData();
   };
+
   return (
     <DrawerContentScrollView {...navigator}>
       <Text style={styles.styleText}>Menú</Text>
@@ -25,7 +38,7 @@ const MenuItems = (navigator: DrawerContentComponentProps) => {
       {isLogin ? (
         <DrawerItem
           label="Sing out"
-          onPress={() => logout()}
+          onPress={() => fetchLogoutUser()}
           labelStyle={styles.logoutTextStyle}
           style={styles.logoutContainerStyle}
         />

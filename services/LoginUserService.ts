@@ -30,13 +30,15 @@ export const loginUser = async (user: UserType): Promise<LoggedUser | null> => {
 export const resgisterUser = async (user: object) => {
   const request: RequestInfo = `${LOGIN_API_URL}${REGISTER_PATH}`;
   const response = await fetch(request, postInitRequest(user));
-  const cookie = response.headers.getSetCookie();
   const jsonResponse: RegisterJsonResponse = await response.json();
 };
 
-export const logoutUser = async (user: object) => {
+export const logoutUser = async (): Promise<LogoutJsonResponse | null> => {
   const request: RequestInfo = `${LOGIN_API_URL}${LOGOUT_PATH}`;
-  const response = await fetch(request, postInitRequest(user));
-  const cookie = response.headers.getSetCookie();
-  const jsonResponse: LogoutJsonResponse = await response.json();
+  const response = await fetch(request, postInitRequest());
+  if (response.status == 200) {
+    const jsonResponse: LogoutJsonResponse = await response.json();
+    return jsonResponse;
+  }
+  return null;
 };

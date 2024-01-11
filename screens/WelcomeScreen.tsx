@@ -9,7 +9,7 @@ const WelcomeScreen = () => {
   const { isLogin, name } = React.useContext(userIsLoginContext);
   return (
     <View>
-      <GreetUser name={isLogin ? name : "User"} />
+      <GreetUser name={name} />
       <BoxRedirection
         text={
           isLogin

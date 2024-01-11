@@ -17,7 +17,7 @@ type CustomProviderProps = {
 const CustomProvider = ({ children }: CustomProviderProps) => {
   const [displayMyInfo, setDisplayMyInfo] = React.useState(true);
   const [isLogin, setIsLogin] = React.useState(false);
-  const [name, setName] = React.useState("");
+  const [name, setName] = React.useState("User");
 
   const userDefault: UserDefaultContextType = {
     isLogin,
