@@ -1,9 +1,13 @@
-import UserType, { LoggedUser } from "../types/UserType";
+import UserType, {
+  UserResponseFetchingType,
+  UserRegisterType,
+} from "../types/UserType";
 import { postInitRequest } from "./requestService";
 import {
   LoginJsonResponse,
   RegisterJsonResponse,
   LogoutJsonResponse,
+  ErrorJsonResponse,
 } from "../types/JsonResponse";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -29,7 +33,9 @@ const removeData = async () => {
   }
 };
 
-export const loginUser = async (user: UserType): Promise<LoggedUser | null> => {
+export const loginUser = async (
+  user: UserType
+): Promise<UserResponseFetchingType | null> => {
   const request: RequestInfo = `${LOGIN_API_URL}${LOGIN_PATH}`;
   const response = await fetch(request, postInitRequest(user));
 
@@ -41,7 +47,7 @@ export const loginUser = async (user: UserType): Promise<LoggedUser | null> => {
       await storeData(cookie);
     }
 
-    const loggedUser: LoggedUser = {
+    const loggedUser: UserResponseFetchingType = {
       name: jsonResponse.name,
     };
 
@@ -51,8 +57,8 @@ export const loginUser = async (user: UserType): Promise<LoggedUser | null> => {
 };
 
 export const resgisterUser = async (
-  user: object
-): Promise<LoggedUser | null> => {
+  user: UserRegisterType
+): Promise<UserResponseFetchingType | null> => {
   const request: RequestInfo = `${LOGIN_API_URL}${REGISTER_PATH}`;
   const response = await fetch(request, postInitRequest(user));
   if (response.status == 201) {
@@ -64,11 +70,19 @@ export const resgisterUser = async (
       await storeData(cookie);
     }
 
-    const loggedUser: LoggedUser = {
+    const loggedUser: UserResponseFetchingType = {
       name: jsonResponse.name,
     };
 
     return loggedUser;
+  } else if (response.status == 400) {
+    const jsonError: ErrorJsonResponse = await response.json();
+
+    const userError: UserResponseFetchingType = {
+      name: user.name,
+      message: jsonError.message,
+    };
+    return userError;
   }
   return null;
 };

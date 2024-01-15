@@ -21,7 +21,6 @@ const MenuItems = (navigator: DrawerContentComponentProps) => {
         toggleChangeIsLogin();
         changeName("User");
         navigator.navigation.navigate("Welcome");
-        console.log("Logout Successfull :(!");
         navigator.navigation.closeDrawer();
       } else {
         alert("Error when trying to close session");

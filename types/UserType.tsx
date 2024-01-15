@@ -3,8 +3,15 @@ type UserType = {
   password: string;
 };
 
-export type LoggedUser = {
+export type UserResponseFetchingType = {
   name: string;
+  message?: string;
+};
+
+export type UserRegisterType = {
+  name: string;
+  email: string;
+  password: string;
 };
 
 export default UserType;

@@ -28,7 +28,6 @@ const LoginScreen = () => {
         toggleChangeIsLogin();
         changeName(data.name);
         navigation?.navigate("Welcome");
-        console.log("Login Successfull :D!!!");
       } else {
         alert("User incorrect, try again !!");
       }

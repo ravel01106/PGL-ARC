@@ -26,12 +26,16 @@ const RegisterScreen = () => {
       const data = await resgisterUser(user);
 
       if (data != null) {
-        toggleChangeIsLogin();
-        changeName(data.name);
-        navigation?.navigate("Welcome");
-        console.log("Login Successfull :D!!!");
+        if (!data.message) {
+          toggleChangeIsLogin();
+          changeName(data.name);
+          alert("User successfully registered");
+          navigation?.navigate("Welcome");
+        } else {
+          alert("Error, This user is already registered, try again!!");
+        }
       } else {
-        alert("User incorrect, try again !!");
+        alert("Unable to register the user, try again later!!");
       }
       setUser(initState);
     };

@@ -13,3 +13,7 @@ export type RegisterJsonResponse = {
 export type LogoutJsonResponse = {
   message: string;
 };
+
+export type ErrorJsonResponse = {
+  message: string;
+};
