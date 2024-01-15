@@ -8,7 +8,7 @@ import {
 } from "@react-navigation/drawer";
 import appColors from "../assets/styles/appColors";
 import { userIsLoginContext } from "../context/LoginContext";
-import { logoutUser } from "../services/LoginUserService";
+import logoutUser from "../services/LogoutUserService";
 
 const MenuItems = (navigator: DrawerContentComponentProps) => {
   const { isLogin, toggleChangeIsLogin, changeName } =

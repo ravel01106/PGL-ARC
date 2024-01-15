@@ -3,7 +3,7 @@ import React from "react";
 import { NavigationContext } from "@react-navigation/native";
 import { userIsLoginContext } from "../context/LoginContext";
 import appColors from "../assets/styles/appColors";
-import { resgisterUser } from "../services/LoginUserService";
+import resgisterUser from "../services/ResgisterUserService";
 
 const RegisterScreen = () => {
   const initState = {

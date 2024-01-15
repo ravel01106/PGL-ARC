@@ -1,25 +1,14 @@
-import UserType, {
-  UserResponseFetchingType,
-  UserRegisterType,
-} from "../types/UserType";
+import UserType, { UserResponseFetchingType } from "../types/UserType";
 import { postInitRequest } from "./requestService";
-import {
-  LoginJsonResponse,
-  RegisterJsonResponse,
-  LogoutJsonResponse,
-  ErrorJsonResponse,
-} from "../types/JsonResponse";
-import { storeData, removeData } from "./AsyncStoreService";
+import { LoginJsonResponse } from "../types/JsonResponse";
+import { storeData } from "./AsyncStoreService";
 
-const LOGIN_API_URL = "http://192.168.0.23:8888/users/";
-const LOGIN_PATH = "login";
-const REGISTER_PATH = "register";
-const LOGOUT_PATH = "logout";
+const LOGIN_PATH = "http://192.168.0.23:8888/users/login";
 
-export const loginUser = async (
+const loginUser = async (
   user: UserType
 ): Promise<UserResponseFetchingType | null> => {
-  const request: RequestInfo = `${LOGIN_API_URL}${LOGIN_PATH}`;
+  const request: RequestInfo = `${LOGIN_PATH}`;
   const response = await fetch(request, postInitRequest(user));
 
   if (response.status == 200) {
@@ -39,44 +28,4 @@ export const loginUser = async (
   return null;
 };
 
-export const resgisterUser = async (
-  user: UserRegisterType
-): Promise<UserResponseFetchingType | null> => {
-  const request: RequestInfo = `${LOGIN_API_URL}${REGISTER_PATH}`;
-  const response = await fetch(request, postInitRequest(user));
-  if (response.status == 201) {
-    const jsonResponse: RegisterJsonResponse = await response.json();
-
-    const cookie: string | null = response.headers.get("Set-Cookie");
-
-    if (cookie) {
-      await storeData(cookie);
-    }
-
-    const loggedUser: UserResponseFetchingType = {
-      name: jsonResponse.name,
-    };
-
-    return loggedUser;
-  } else if (response.status == 400) {
-    const jsonError: ErrorJsonResponse = await response.json();
-
-    const userError: UserResponseFetchingType = {
-      name: user.name,
-      message: jsonError.message,
-    };
-    return userError;
-  }
-  return null;
-};
-
-export const logoutUser = async (): Promise<LogoutJsonResponse | null> => {
-  const request: RequestInfo = `${LOGIN_API_URL}${LOGOUT_PATH}`;
-  const response = await fetch(request, postInitRequest());
-  if (response.status == 200) {
-    const jsonResponse: LogoutJsonResponse = await response.json();
-    await removeData();
-    return jsonResponse;
-  }
-  return null;
-};
+export default loginUser;

@@ -3,7 +3,7 @@ import React from "react";
 import appColors from "../assets/styles/appColors";
 import { NavigationContext } from "@react-navigation/native";
 import { userIsLoginContext } from "../context/LoginContext";
-import { loginUser } from "../services/LoginUserService";
+import loginUser from "../services/LoginUserService";
 
 const LoginScreen = () => {
   const initState = {
