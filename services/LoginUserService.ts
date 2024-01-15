@@ -9,29 +9,12 @@ import {
   LogoutJsonResponse,
   ErrorJsonResponse,
 } from "../types/JsonResponse";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { storeData, removeData } from "./AsyncStoreService";
 
 const LOGIN_API_URL = "http://192.168.0.23:8888/users/";
 const LOGIN_PATH = "login";
 const REGISTER_PATH = "register";
 const LOGOUT_PATH = "logout";
-
-const storeData = async (cookie: string) => {
-  try {
-    await AsyncStorage.setItem("my-cookie", cookie);
-    console.log("Se ha añadido la cookie al dispositivo correctamente");
-  } catch (error) {
-    console.log("Error");
-  }
-};
-const removeData = async () => {
-  try {
-    await AsyncStorage.removeItem("my-cookie");
-    console.log("Se ha eliminado la cookie correctamente");
-  } catch (error) {
-    console.log("Error");
-  }
-};
 
 export const loginUser = async (
   user: UserType
