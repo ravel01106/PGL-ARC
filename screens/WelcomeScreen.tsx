@@ -3,7 +3,6 @@ import React from "react";
 import GreetUser from "../components/GreetUser";
 import BoxRedirection from "../components/BoxRedirection";
 import { userIsLoginContext } from "../context/LoginContext";
-import userDefault from "../data/User";
 
 const WelcomeScreen = () => {
   const { isLogin, name } = React.useContext(userIsLoginContext);
