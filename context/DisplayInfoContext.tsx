@@ -1,9 +1,5 @@
 import React from "react";
-
-type DisplayInfoContextType = {
-  displayMyInfo: boolean;
-  toggleChangeDisplayMyInfo: Function;
-};
+import { DisplayInfoContextType } from "../types/DisplayInfoContextType";
 
 const displayInfoContext = React.createContext({} as DisplayInfoContextType);
 

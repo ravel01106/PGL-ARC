@@ -1,9 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import appColors from "../assets/styles/appColors";
-type GreetUserProps = {
-  name: string;
-};
+import { GreetUserProps } from "../types/GreetUserPropsType";
+
 const GreetUser = ({ name }: GreetUserProps) => {
   return (
     <View style={styles.mainContainer}>

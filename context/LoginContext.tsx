@@ -1,11 +1,5 @@
 import React from "react";
-
-type UserDefaultContextType = {
-  isLogin: boolean;
-  toggleChangeIsLogin: Function;
-  name: string;
-  changeName: Function;
-};
+import { UserDefaultContextType } from "../types/UserDefaultContextType";
 
 const userIsLoginContext = React.createContext({} as UserDefaultContextType);
 

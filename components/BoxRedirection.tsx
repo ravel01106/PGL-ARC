@@ -2,11 +2,7 @@ import { StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 import appColors from "../assets/styles/appColors";
 import { NavigationContext } from "@react-navigation/native";
-
-type BoxRedirectionProps = {
-  text: string;
-  textButton: string;
-};
+import { BoxRedirectionProps } from "../types/BoxRedirectionPropsType";
 
 const BoxRedirection = (props: BoxRedirectionProps) => {
   const { text, textButton } = props;
