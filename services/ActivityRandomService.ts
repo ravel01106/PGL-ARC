@@ -1,4 +1,4 @@
-import { getInitRequest } from "./requestService";
+import { getInitRequest } from "./RequestService";
 
 const ACTIVITY_API_URL = "https://www.boredapi.com";
 const ACTIVITY_PATH = "/api/activity";

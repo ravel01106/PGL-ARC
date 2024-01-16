@@ -3,7 +3,7 @@ import { postInitRequest } from "./RequestService";
 import { LoginJsonResponse } from "../types/JsonResponse";
 import { storeData } from "./AsyncStoreService";
 
-const LOGIN_PATH = "http://192.168.0.23:8888/users/login";
+const LOGIN_PATH = "http://172.16.101.14:8888/users/login";
 
 const loginUser = async (
   user: UserType
