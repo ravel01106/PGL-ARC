@@ -1,5 +1,5 @@
 import UserType, { UserResponseFetchingType } from "../types/UserType";
-import { postInitRequest } from "./requestService";
+import { postInitRequest } from "./RequestService";
 import { LoginJsonResponse } from "../types/JsonResponse";
 import { storeData } from "./AsyncStoreService";
 

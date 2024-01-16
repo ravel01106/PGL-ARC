@@ -1,7 +1,7 @@
 import { ErrorJsonResponse, RegisterJsonResponse } from "../types/JsonResponse";
 import { UserRegisterType, UserResponseFetchingType } from "../types/UserType";
 import { storeData } from "./AsyncStoreService";
-import { postInitRequest } from "./requestService";
+import { postInitRequest } from "./RequestService";
 
 const REGISTER_PATH = "http://192.168.0.23:8888/users/register";
 

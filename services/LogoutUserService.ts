@@ -1,6 +1,6 @@
 import { LogoutJsonResponse } from "../types/JsonResponse";
 import { removeData } from "./AsyncStoreService";
-import { postInitRequest } from "./requestService";
+import { postInitRequest } from "./RequestService";
 
 const LOGOUT_PATH = "http://192.168.0.23:8888/users/logout";
 
