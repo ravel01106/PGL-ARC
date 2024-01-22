@@ -12,6 +12,7 @@ import MenuItems from "./MenuItems";
 import { userIsLoginContext } from "../context/LoginContext";
 import ToDoListScreen from "../screens/ToDoListScreen";
 import RegisterScreen from "../screens/RegisterScreen";
+import RecorderScreen from "../screens/RecorderScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -54,6 +55,7 @@ const CustomDrawer = () => {
         <>
           <Drawer.Screen name="Portfolio" component={PortfolioScreen} />
           <Drawer.Screen name="ToDoList" component={ToDoListScreen} />
+          <Drawer.Screen name="Recorder" component={RecorderScreen} />
         </>
       ) : (
         <>

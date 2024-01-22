@@ -1,3 +1,3 @@
-const LOGIN_API_URL = "http://172.16.100.104:8888";
+const LOGIN_API_URL = "http://192.168.0.17:8888";
 
 export default LOGIN_API_URL;
