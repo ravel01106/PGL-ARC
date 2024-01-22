@@ -2,8 +2,9 @@ import { ErrorJsonResponse, RegisterJsonResponse } from "../types/JsonResponse";
 import { UserRegisterType, UserResponseFetchingType } from "../types/UserType";
 import { storeData } from "./AsyncStoreService";
 import { postInitRequest } from "./RequestService";
+import LOGIN_API_URL from "../data/LoginApiUrl";
 
-const REGISTER_PATH = "http://172.16.101.14:8888/users/register";
+const REGISTER_PATH = LOGIN_API_URL + "/users/register";
 
 const resgisterUser = async (
   user: UserRegisterType

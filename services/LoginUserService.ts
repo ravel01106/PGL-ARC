@@ -2,8 +2,9 @@ import UserType, { UserResponseFetchingType } from "../types/UserType";
 import { postInitRequest } from "./RequestService";
 import { LoginJsonResponse } from "../types/JsonResponse";
 import { storeData } from "./AsyncStoreService";
+import LOGIN_API_URL from "../data/LoginApiUrl";
 
-const LOGIN_PATH = "http://172.16.101.14:8888/users/login";
+const LOGIN_PATH = LOGIN_API_URL + "/users/login";
 
 const loginUser = async (
   user: UserType

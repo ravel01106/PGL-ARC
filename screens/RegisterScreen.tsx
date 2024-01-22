@@ -23,19 +23,23 @@ const RegisterScreen = () => {
 
   const fetchLoginUser = () => {
     const fetchData = async () => {
-      const data = await resgisterUser(user);
-
-      if (data != null) {
-        if (!data.message) {
-          toggleChangeIsLogin();
-          changeName(data.name);
-          alert("User successfully registered");
-          navigation?.navigate("Welcome");
-        } else {
-          alert("Error, This user is already registered, try again!!");
-        }
+      if (user.name == "" || user.name == "" || user.password == "") {
+        alert("Error, you have to fill in all the fields.");
       } else {
-        alert("Unable to register the user, try again later!!");
+        const data = await resgisterUser(user);
+
+        if (data != null) {
+          if (!data.message) {
+            toggleChangeIsLogin();
+            changeName(data.name);
+            alert("User successfully registered");
+            navigation?.navigate("Welcome");
+          } else {
+            alert("Error, This user is already registered, try again!!");
+          }
+        } else {
+          alert("Unable to register the user, try again later!!");
+        }
       }
       setUser(initState);
     };
