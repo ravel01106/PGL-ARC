@@ -8,43 +8,181 @@ import {
 } from "react-native";
 import React from "react";
 import appColors from "../assets/styles/appColors";
-import { Entypo } from "@expo/vector-icons";
-import TitleActivitynator from "../components/TitleActivitynator";
-import ActivitiesListEmpty from "./ActivitiesListEmpty";
+import { FontAwesome5, Entypo, FontAwesome } from "@expo/vector-icons";
 import ListEmpty from "../components/ListEmpty";
 import TitleScreen from "../components/TitleScreen";
+import { Audio } from "expo-av";
+import { RecordType } from "../types/RecordType";
+import { getDurationFormatted, playSound } from "../services/SoundService";
+import { setItem, getItem, removeItem } from "../services/AsyncStoreService";
 
 const RecorderScreen = () => {
-  type AudioRecording = {
-    duration: string;
-    milli: number;
-    file: string;
-  };
-
   const [isRecording, setIsRecording] = React.useState<boolean>(false);
-  const [recordings, setRecordings] = React.useState<AudioRecording[]>([]);
+  const [recordings, setRecordings] = React.useState<RecordType[]>([]);
+  const [permissionResponse, requestPermission] = Audio.usePermissions();
+  const [recording, setRecording] = React.useState<Audio.Recording>();
+
+  async function startRecording(): Promise<void> {
+    try {
+      if (permissionResponse) {
+        if (permissionResponse.status !== "granted") {
+          console.log("Requesting permission..");
+          await requestPermission();
+        }
+        await Audio.setAudioModeAsync({
+          allowsRecordingIOS: true,
+          playsInSilentModeIOS: true,
+        });
+
+        const { recording } = await Audio.Recording.createAsync(
+          Audio.RecordingOptionsPresets.HIGH_QUALITY
+        );
+        console.log("Recording started");
+        setRecording(recording);
+      }
+    } catch (error) {
+      console.error("Failed to start recording", error);
+    }
+  }
+
+  async function stopRecording(): Promise<void> {
+    setRecording(undefined);
+    let allRecordingsCurrently: RecordType[] = [...recordings];
+
+    if (recording !== undefined) {
+      await recording.stopAndUnloadAsync();
+
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: false,
+      });
+
+      const duration: number = (await recording.getStatusAsync())
+        .durationMillis;
+      const file: string | null = recording.getURI();
+
+      const audioRecording: RecordType = {
+        duration: getDurationFormatted(duration),
+        milli: duration,
+        file: file ?? "",
+      };
+      allRecordingsCurrently.push(audioRecording);
+
+      await setItem("ArrayRecords", JSON.stringify(allRecordingsCurrently));
+    }
+    setRecordings(allRecordingsCurrently);
+  }
+
+  async function clearRecordings() {
+    try {
+      setRecordings([]);
+      await removeItem("ArrayRecords");
+    } catch (error) {
+      console.log("F");
+    }
+  }
+
+  async function OnDeleteRecord(recordRemoved: RecordType) {
+    const arrayDataRecordings = recordings.filter(
+      (record) => record.file != recordRemoved.file
+    );
+    await setItem("ArrayRecords", JSON.stringify(arrayDataRecordings));
+    setRecordings(arrayDataRecordings);
+  }
+
+  async function handleRecordButtonPress() {
+    if (isRecording) {
+      setIsRecording(false);
+      await stopRecording();
+    } else {
+      await startRecording();
+      setIsRecording(true);
+    }
+  }
+
+  React.useEffect(() => {
+    const soundData = async () => {
+      let data: RecordType[] = [];
+
+      try {
+        const dataStorage = await getItem("ArrayRecords");
+        if (dataStorage) {
+          data = JSON.parse(dataStorage);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      setRecordings(data);
+    };
+    soundData();
+  }, [recordings]);
 
   return (
     <View style={styles.mainContainer}>
       <TitleScreen title="Recordnaitor" />
-      <Pressable style={styles.buttonContainer}>
-        <Text style={styles.buttonText}>
-          {isRecording ? "Stop recording" : "Start recording"}
-        </Text>
-      </Pressable>
+      <View style={styles.buttonContainer}>
+        {isRecording ? (
+          <FontAwesome name="microphone" size={30} color={appColors.primary} />
+        ) : (
+          <FontAwesome
+            name="microphone-slash"
+            size={30}
+            color={appColors.primary}
+          />
+        )}
+
+        <Pressable
+          style={
+            isRecording
+              ? styles.buttonContainerStopRecord
+              : styles.buttonContainerStartRecord
+          }
+          onPress={handleRecordButtonPress}
+        >
+          <Text
+            style={
+              isRecording
+                ? styles.buttonTextStopRecord
+                : styles.buttonTextStartRecord
+            }
+          >
+            {isRecording ? "Stop recording" : "Start recording"}
+          </Text>
+        </Pressable>
+        <TouchableOpacity
+          onPress={clearRecordings}
+          style={styles.buttonTouchable}
+        >
+          <FontAwesome5 name="trash" size={24} color={appColors.letter} />
+        </TouchableOpacity>
+      </View>
       <View style={styles.boxMainContainer}>
         <FlatList
-          style={styles.listActivitiesContainer}
+          style={styles.listRecordingsContainer}
           data={recordings}
           renderItem={(record) => (
-            <TouchableOpacity style={styles.activityContainer}>
-              <Text style={styles.activityText}>
-                Record#{record.item.duration}
+            <View style={styles.recordContainer}>
+              <Text style={styles.recordText}>
+                Recording#{record.index + 1} - {record.item.duration}
               </Text>
-              <TouchableOpacity>
-                <Entypo name="cross" size={34} color={appColors.letterWhite} />
-              </TouchableOpacity>
-            </TouchableOpacity>
+              <View style={styles.anotherButtonsContainer}>
+                <TouchableOpacity style={styles.buttonTouchable}>
+                  <FontAwesome5
+                    name="play"
+                    size={20}
+                    color={appColors.letterWhite}
+                    onPress={() => playSound(record.item)}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonTouchable}>
+                  <Entypo
+                    name="cross"
+                    size={32}
+                    color={appColors.letterWhite}
+                    onPress={() => OnDeleteRecord(record.item)}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
           )}
           ListEmptyComponent={() => <ListEmpty typeList="recordings" />}
         />
@@ -59,18 +197,45 @@ const styles = StyleSheet.create({
   mainContainer: {
     alignItems: "center",
   },
+  buttonTouchable: {
+    height: 30,
+    width: 30,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   buttonContainer: {
-    height: 70,
-    width: "55%",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    height: 110,
+    width: "100%",
+    paddingBottom: 20,
+  },
+  buttonContainerStartRecord: {
+    height: 65,
+    width: 170,
     backgroundColor: appColors.secundary,
     borderRadius: 100,
     justifyContent: "center",
-    marginBottom: 38,
   },
-  buttonText: {
+  buttonContainerStopRecord: {
+    height: 65,
+    width: 170,
+    backgroundColor: appColors.primary,
+    borderRadius: 100,
+    justifyContent: "center",
+  },
+  buttonTextStartRecord: {
     textAlign: "center",
     color: appColors.letter,
-    fontSize: 24,
+    fontSize: 19,
+    fontWeight: "bold",
+  },
+  buttonTextStopRecord: {
+    textAlign: "center",
+    color: appColors.letterWhite,
+    fontSize: 19,
+    fontWeight: "bold",
   },
   boxMainContainer: {
     height: 450,
@@ -90,11 +255,18 @@ const styles = StyleSheet.create({
   styleTextButton: {
     color: appColors.letter,
   },
-  listActivitiesContainer: {
+  listRecordingsContainer: {
     marginTop: 20,
     marginBottom: 10,
   },
-  activityContainer: {
+
+  anotherButtonsContainer: {
+    width: 80,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  recordContainer: {
     width: "80%",
     height: 70,
     backgroundColor: appColors.ternary,
@@ -107,48 +279,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  activityText: {
+  recordText: {
     textAlign: "center",
     color: appColors.letterWhite,
     paddingHorizontal: 10,
     fontSize: 18,
     flex: 1,
-  },
-  modalMainContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.7)",
-  },
-  cardContainer: {
-    backgroundColor: "#fff",
-    width: 340,
-    height: 400,
-    borderRadius: 30,
-    padding: 10,
-    justifyContent: "space-between",
-    flexDirection: "row",
-  },
-  informationContainer: {
-    width: 280,
-    paddingTop: 35,
-    paddingHorizontal: 10,
-  },
-  informationTittle: {
-    backgroundColor: appColors.primary,
-    color: appColors.letterWhite,
-    paddingVertical: 8,
-    fontSize: 20,
-    fontWeight: "600",
-  },
-  informationText: {
-    backgroundColor: appColors.secundary,
-    color: appColors.letter,
-    textAlign: "center",
-    paddingVertical: 10,
-    borderRadius: 30,
-    fontSize: 16,
-    fontWeight: "600",
-    marginBottom: 15,
   },
 });
