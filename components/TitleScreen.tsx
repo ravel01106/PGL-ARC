@@ -1,10 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import appColors from "../assets/styles/appColors";
-
-type TitleScreenProps = {
-  title: string;
-};
+import { TitleScreenProps } from "../types/TitleScreenPropsType";
 
 const TitleScreen = ({ title }: TitleScreenProps) => {
   return (
@@ -40,7 +37,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   styleFigure: {
-    height: 35,
+    height: 37,
     width: "20%",
     backgroundColor: appColors.secundary,
   },

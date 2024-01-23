@@ -1,10 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import appColors from "../assets/styles/appColors";
-
-type listEmtyProp = {
-  typeList: string;
-};
+import { listEmtyProp } from "../types/ListEmptyPropsType";
 
 const ListEmpty = ({ typeList }: listEmtyProp) => {
   return (
