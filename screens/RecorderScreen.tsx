@@ -21,6 +21,7 @@ const RecorderScreen = () => {
   const [recordings, setRecordings] = React.useState<RecordType[]>([]);
   const [permissionResponse, requestPermission] = Audio.usePermissions();
   const [recording, setRecording] = React.useState<Audio.Recording>();
+  const [isPLaying, setIsplaying] = React.useState<boolean>(false);
 
   async function startRecording(): Promise<void> {
     try {
@@ -99,6 +100,16 @@ const RecorderScreen = () => {
     }
   }
 
+  async function handlePlayRecordButtonPress(record: RecordType) {
+    if (!isPLaying) {
+      setIsplaying(true);
+      await playSound(record);
+      setTimeout(() => {
+        setIsplaying(false);
+      }, record.milli);
+    }
+  }
+
   React.useEffect(() => {
     const soundData = async () => {
       let data: RecordType[] = [];
@@ -167,10 +178,10 @@ const RecorderScreen = () => {
               <View style={styles.anotherButtonsContainer}>
                 <TouchableOpacity style={styles.buttonTouchable}>
                   <FontAwesome5
-                    name="play"
+                    name={"play"}
                     size={20}
                     color={appColors.letterWhite}
-                    onPress={() => playSound(record.item)}
+                    onPress={() => handlePlayRecordButtonPress(record.item)}
                   />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonTouchable}>
