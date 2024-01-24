@@ -125,7 +125,7 @@ const RecorderScreen = () => {
       setRecordings(data);
     };
     soundData();
-  }, [recordings]);
+  }, []);
 
   return (
     <View style={styles.mainContainer}>
